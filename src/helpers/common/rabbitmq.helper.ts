@@ -23,9 +23,9 @@ class RabbitMq {
                   this.channel = res;
                   console.log('Connection sucessfuly created');
 
-                  res.assertQueue(RABITMQ.LOANSUSER, { durable: false });
+                  res.assertQueue(RABITMQ.USER, { durable: false });
 
-                  res.assertQueue(RABITMQ.DEPOSIT_QUEUE, { durable: false });
+                  res.assertQueue(RABITMQ.QUEUE, { durable: false });
                   this.channel.prefetch(1);
                   this.consumeDeposits();
                },
@@ -84,7 +84,7 @@ class RabbitMq {
 
    public consumeDeposits(): void {
       this.channel.consume(
-         RABITMQ.DEPOSIT_QUEUE,
+         RABITMQ.QUEUE,
          (msg: amqp.Message) => {
             const data = JSON.parse(msg.content.toString());
             console.log(' consumeDeposits : data ', data);
