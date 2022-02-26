@@ -71,11 +71,10 @@ class App {
       this.app.use(logger('tiny'));
       this.app.set('views', path.join(__dirname, 'views'));
       this.app.set('view engine', 'ejs');
-      this.runRedoc();
 
       this.app.use(cors());
       this.app.use(
-         '/v1/loans/swagger',
+         '/v1/acc/swagger',
          swaggerUi.serve,
          swaggerUi.setup(swaggerDocument)
       );
@@ -84,9 +83,9 @@ class App {
 
    private initializeControllers(controllers: Controller[]) {
       controllers.forEach((controller) => {
-         this.app.use('/v1/accubits', controller.router);
+         this.app.use('/v1', controller.router);
       });
-      this.app.get('/v1/accubits/status', (req, res) => {
+      this.app.get('/v1/user/status', (req, res) => {
          console.log('Status Route called');
          return res.send({ status: 'success' });
       });
@@ -119,18 +118,5 @@ class App {
       new SocketHelper(io);
    }
 
-   private runRedoc() {
-      // serve your swagger.json file
-      this.app.get('/v1/loans/swagger.json', (req, res) => {
-         res.sendFile('swagger.json', { root: path.join(__dirname) });
-      });
-      this.app.get(
-         '/v1/loans/docs',
-         Redoc({
-            title: 'API Docs for c32 Loans',
-            specUrl: 'https://api-stage.com/api/v1/accubits/swagger.json',
-         })
-      );
-   }
 }
 export default App;

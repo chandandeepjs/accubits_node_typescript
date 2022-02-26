@@ -14,43 +14,8 @@ class MailHelper {
       this.mailerObj = this.mailConn();
    }
 
-   public sendMail(
-      sendTo: string,
-      subjectLine: string,
-      textLine: string,
-      template: string
-      // res: any = ''
-   ) {
-      return new Promise((resolve) => {
-         this.appObject.render(
-            template,
-            {
-               subject: subjectLine,
-               message: textLine,
-            },
-            (err: Error, htmlview: string) => {
-               console.log(err);
-               try {
-                  this.mailerObj.sendMail({
-                     from:ENV_VARIABLE.SMTP_FROM, // sender address
-                     to: sendTo, // list of receivers
-                     cc:ENV_VARIABLE.CC_EMAIL,
-                     subject: subjectLine, // Subject line
-                     text: striptags(htmlview), // plain text body
-                     html: htmlview, // html body
-                  });
-                  resolve(true);
-               } catch (e) {
-                  console.log('Errors under email', e);
-                  resolve(false);
-               }
-            }
-         );
-      });
-   }
-
    public sendEmail(sendTo: string, subjectLine: string, textLine: string) {
-      console.log('Here Email', sendTo, subjectLine);
+      console.log('Here Email', sendTo, subjectLine, textLine);
       try {
          this.mailerObj.sendMail({
             from:ENV_VARIABLE.SMTP_FROM, // sender address

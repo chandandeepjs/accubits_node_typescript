@@ -51,7 +51,9 @@ export const TRANSACTION_TYPE = {
 };
 
 export const RES_MSG = {
- 
+   VALIDATION:{
+      ERROR:"Invalid Response"
+   }
 };
 
 export const MIDDLEWARE_RESPONSE = {
@@ -135,4 +137,9 @@ export const ENV_VARIABLE = {
    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
    REDIS_AUTH:  process.env.REDIS_AUTH,
 };
-
+export const ENDPOINT={
+   PRICE_CONVERT_PATH:""
+}
+export const VALIDATION={
+   ERROR:"Invalid Response"
+}

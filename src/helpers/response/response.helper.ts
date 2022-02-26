@@ -38,7 +38,6 @@ class ResponseHelper {
       } else {
          if (data.error) {
 
-
             data.data = [{ name: RES_MSG.VALIDATION.ERROR, message: data.message }] as unknown as T
             data.status = RESPONSES.BADREQUEST;
 
