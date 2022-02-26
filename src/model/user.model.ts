@@ -20,17 +20,15 @@ export const User = sequelize.define<UserInstance>('coin', {
       primaryKey: true,
    },
    firstname: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
    },
    lastname: {
-      type: DataTypes.STRING,
-      unique: true,
+      type: DataTypes.STRING
    },
    email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
    },
    age: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
+      type: DataTypes.INTEGER
    }
 });
