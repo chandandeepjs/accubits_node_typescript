@@ -10,7 +10,7 @@ import {
 const setResponse = Helpers.ResponseHelper;
 
 class AdminCoinController implements Interfaces.Controller {
-   public path = '/accubits';
+   public path = '/api';
 
    public router = express.Router();
 

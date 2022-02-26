@@ -12,7 +12,7 @@ export interface UserInstance
    extends Model<IUserReturn, CoinCreationAttributes>,
       IUserReturn {}
 
-export const User = sequelize.define<UserInstance>('coin', {
+export const User = sequelize.define<UserInstance>('user', {
 
    id: {
       type: DataTypes.UUID,

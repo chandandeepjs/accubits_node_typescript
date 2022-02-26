@@ -10,7 +10,7 @@ import { Server } from 'http';
    await config.initiate();
 })();
 import App from './app';
-import CoinController from './modules/user/user.controller';
+import UserController from './modules/user/user.controller';
 
 import {
    ENV_VARIABLE
@@ -38,7 +38,7 @@ if (cluster.isMaster && clusterEnable) {
    });
 } else {
    const app = new App([
-      new CoinController(),
+      new UserController(),
    ]);
    instance = app.listen();
 }

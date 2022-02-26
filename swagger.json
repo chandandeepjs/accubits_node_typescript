@@ -1,0 +1,151 @@
+{
+   "openapi": "3.0.2",
+   "info": {
+      "title": "Accubits",
+      "description": "Accubits service",
+      "version": "1.0.0"
+   },
+   "produces": ["application/json"],
+   "servers": [
+      {
+         "url": "http://localhost:5000/v1/accubits",
+         "description": "Development server"
+      }
+   ],
+   "components": {
+     
+      "schemas": {
+         "Error": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "status": {
+                        "type": "number"
+                     },
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "object"
+                     },
+                     "data": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string"
+                           },
+                           "message": {
+                              "type": "object"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "user_response": {
+            "type": "object",
+            "properties": {
+               "error": {
+                  "type": "boolean"
+               },
+               "message": {
+                  "type": "string"
+               },
+               "data": {
+                  "type": "object",
+                  "properties": {
+                     "id": {
+                        "type": "string"
+                     },
+                     "firstname": {
+                        "type": "string"
+                     },
+                     "lastname": {
+                        "type": "string"
+                     },
+                     "email": {
+                        "type": "string"
+                     },
+                     "age": {
+                        "type": "number"
+                     },
+                     "updated_at": {
+                        "type": "string"
+                     },
+                     "created_at": {
+                        "type": "string"
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "security": [
+      {
+         "JWT": []
+      }
+   ],
+   "paths": {
+      "/api/coin": {
+         "post": {
+            "tags": ["User"],
+            "description": "Create user",
+            "requestBody": {
+               "content": {
+                  "multipart/form-data": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "firstname": {
+                              "type": "string",
+                              "required": true,
+                              "description": "user firstname"
+                           },
+                           "lastname": {
+                              "type": "string",
+                              "description": "user lastname"
+                           },
+                           "email": {
+                              "type": "string",
+                              "description": "user email"
+                           },
+                           "age": {
+                              "type": "number",
+                              "description": "price in usd"
+                          
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/user_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+   }
+}
