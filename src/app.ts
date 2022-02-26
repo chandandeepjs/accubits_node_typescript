@@ -12,14 +12,10 @@ import * as swaggerDocument from './swagger.json';
 import SocketHelper from './helpers/common/socket.heper';
 import { Server } from 'http';
 import KafkaService from '../src/services/kafka.service';
-import Redoc from 'redoc-express';
 import {
    ENV_VARIABLE
   
 } from './constant/response';
-
-
-// import ConfigHelper from './helpers/common/config.helper';
 // import { syncAll } from './model/db';
 
 const mailHelper = Helper.MailHelper;
@@ -53,7 +49,7 @@ class App {
                }`
             );
             // syncAll();
-            //await KafkaService.consumeLoanApprove();
+            await KafkaService.consumeEmailDataAndSendmail()
 
          }
       );

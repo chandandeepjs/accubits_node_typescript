@@ -93,6 +93,7 @@ export const KAFKA_CONFIG = {
    GROUP_ID: 'test_api',
    BROKER:  process.env.KAFKA_BROKER,
    BROKER_PORT: process.env.KAFKA_PORT,
+   EMAIL_TOPIC:"email_topic"
 };
 
 

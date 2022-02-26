@@ -1,15 +1,13 @@
 import { IRequestResponse } from '@interfaces';
 import { IUserPayload, IUserReturn } from './user.interface';
 import { User } from '../../model/user.model';
-import { upload } from '../../helpers/common/file_upload';
-import { userInfo } from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as csv from 'fast-csv';
-import MailHelper from '../../helpers/common/mail.helper'
-
-
-
+import KafkaService from '../../services/kafka.service'
+import {
+   KAFKA_CONFIG,
+} from '../../constant/response';
 class UserHelper {
    /**
     * 
@@ -61,12 +59,15 @@ class UserHelper {
                csvData.forEach(async(element:any) => {
                
                   const userdetails = await User.findOne({where:{email:element.email},raw:true});
-                  if(userdetails){
-                     
-                     console.log("userdetails",userdetails)
-                     const contentStx = `${userdetails.firstname} ${userdetails.lastname} ${element.content}`
-                     MailHelper.sendEmail(userdetails.email,"Dummy Subject",contentStx)
 
+                  if(userdetails){
+
+                     console.log("userdetails",userdetails)
+
+                     const contentStx = `${userdetails.firstname} ${userdetails.lastname} ${element.content}`
+                     const emailPayload = {email:userdetails.email,subject:"Dummy Subject",context:contentStx}
+                  
+                     KafkaService.produceMessage(KAFKA_CONFIG.EMAIL_TOPIC,emailPayload)
                   }
                 
                });

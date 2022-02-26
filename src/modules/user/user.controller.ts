@@ -27,8 +27,6 @@ class AdminCoinController implements Interfaces.Controller {
           Middlewares.validationMiddleware(UserValidation),
            this.createUser
          )
-         
-         
    }
 
    private createUser = async (

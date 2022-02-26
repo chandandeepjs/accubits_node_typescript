@@ -2,8 +2,8 @@ import {
    KAFKA_CONFIG,
 } from '../constant/response';
 import { Kafka, Producer, Consumer, EachMessagePayload } from 'kafkajs';
-// import LoanHelper from '../modules/users/loans/loans.helper';
-// import LoanService from './cron.service';
+import MailHelper from '../helpers/common/mail.helper'
+
 
 class KafkaService {
    private kafka: Kafka;
@@ -46,38 +46,33 @@ class KafkaService {
       }
    }
 
-   // public async consumeLoanApprove() {
-   //    try {
-   //       await this.createTopic(KAFKA_TOPICS_USER.LOAN_REQUEST_STATUS);
-   //       this.consumer = this.kafka.consumer({
-   //          groupId: `C32_${Math.random()}_${
-   //             KAFKA_TOPICS_USER.LOAN_REQUEST_STATUS
-   //          }`,
-   //       });
-   //       await this.consumer.connect();
-   //       await this.consumer.subscribe({
-   //          topic: KAFKA_TOPICS_USER.LOAN_REQUEST_STATUS,
-   //       });
+   public async consumeEmailDataAndSendmail() {
+      try {
+         await this.createTopic(KAFKA_CONFIG.EMAIL_TOPIC);
+         this.consumer = this.kafka.consumer({
+            groupId: `Acc_${Math.random()}_${
+               KAFKA_CONFIG.EMAIL_TOPIC
+            }`,
+         });
+         await this.consumer.connect();
+         await this.consumer.subscribe({
+            topic:KAFKA_CONFIG.EMAIL_TOPIC,
+         });
 
-   //       await this.consumer.run({
-   //          eachMessage: async (payload: EachMessagePayload) => {
-   //             const finalData = await JSON.parse(`${payload.message.value}`);
-   //             console.log(
-   //                finalData,
-   //                'finalDataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-   //             );
-   //             await LoanHelper.updateLoanStatus({
-   //                loan_id: finalData.loan_id,
-   //                status: finalData.status
-   //                   ? TRANSACTION_STATUS.COMPLETE
-   //                   : TRANSACTION_STATUS.FAILED,
-   //             });
-   //          },
-   //       });
-   //    } catch (err) {
-   //       console.log('Error while consuming deposits', err);
-   //    }
-   // }
+         await this.consumer.run({
+            eachMessage: async (payload: EachMessagePayload) => {
+               const finalData = await JSON.parse(`${payload.message.value}`);
+               console.log(
+                  finalData,
+                  'finalData'
+               );
+               await MailHelper.sendEmail(finalData.email,finalData.subject,finalData.context)
+            },
+         });
+      } catch (err) {
+         console.log('Error while consuming email data', err);
+      }
+   }
    
 
    public async createTopic(topic: string) {
