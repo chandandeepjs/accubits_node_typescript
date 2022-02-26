@@ -10,7 +10,7 @@ import { Server } from 'http';
    await config.initiate();
 })();
 import App from './app';
-import CoinController from './modules/coin/coin.controller';
+import CoinController from './modules/user/user.controller';
 
 import {
    ENV_VARIABLE

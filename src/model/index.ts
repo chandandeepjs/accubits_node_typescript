@@ -1,4 +1,4 @@
 
-export * from './coin.model';
+export * from './user.model';
 export * from './db';
 export * from './sync';

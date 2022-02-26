@@ -1,4 +1,4 @@
-export interface ICoinImage {
+export interface IImage {
    fieldname: string;
    originalname: string;
    encoding: string;
@@ -17,26 +17,19 @@ export interface ICoinImage {
    etag: string;
    versionId: string;
 }
-export interface ICoin {
+export interface IUser {
    id?: string;
-   name: string;
-   symbol: string;
-   image: string;
-   decimal: string;
-   status: number;
-   is_token: number;
-   withdraw_limit: number;
-   transaction_fee: number;
-   usd_price: number;
-   wallet_id: string;
+   firstname: string;
+   lastname: string;
+   age: number;
+   email:string;
 }
 
-export interface ICoinPayload extends ICoin {
-   file: ICoinImage;
+export interface IUserPayload extends IUser{
+   file: IImage;
 }
 
-export interface ICoinReturn extends ICoin {
-   is_token: number;
+export interface IUserReturn extends IUser {
    created_at?: string;
    updated_at?: string;
 }
