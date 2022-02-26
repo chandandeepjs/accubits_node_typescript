@@ -1,0 +1,1348 @@
+{
+   "openapi": "3.0.2",
+   "info": {
+      "title": "Crypto  C32",
+      "description": "Loan service",
+      "version": "1.0.0"
+   },
+   "produces": ["application/json"],
+   "servers": [
+      {
+         "url": "https://api-stage.iccbc32.com/api/v1/loans",
+         "description": "Stage server"
+      },
+      {
+         "url": "http://localhost:5001/v1/loans",
+         "description": "Development server"
+      }
+   ],
+   "components": {
+      "securitySchemes": {
+         "JWT": {
+            "type": "apiKey",
+            "name": "api-access-token",
+            "in": "header",
+            "description": "Jwt authentication to access service"
+         }
+      },
+      "schemas": {
+         "Error": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "status": {
+                        "type": "number"
+                     },
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "object"
+                     },
+                     "data": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string"
+                           },
+                           "message": {
+                              "type": "object"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "loans_create_response": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "string"
+                     },
+                     "data": {
+                        "type": "object",
+                        "properties": {
+                           "id": {
+                              "type": "string"
+                           },
+                           "user_id": {
+                              "type": "string"
+                           },
+                           "amount": {
+                              "type": "string"
+                           },
+                           "updated_at": {
+                              "type": "string"
+                           },
+                           "created_at": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "add_plan_response": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "string"
+                     },
+                     "data": {
+                        "type": "object",
+                        "properties": {
+                           "id": {
+                              "type": "string"
+                           },
+                           "min_amount": {
+                              "type": "number"
+                           },
+                           "max_amount": {
+                              "type": "number"
+                           },
+                           "min_tenure": {
+                              "type": "number"
+                           },
+                           "max_tenure": {
+                              "type": "number"
+                           },
+                           "interest_rate": {
+                              "type": "number"
+                           },
+                           "ltv_percent": {
+                              "type": "number"
+                           },
+                           "margin_call": {
+                              "type": "number"
+                           },
+                           "liquidation_call": {
+                              "type": "number"
+                           },
+                           "overdue": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "number"
+                           },
+                           "updated_at": {
+                              "type": "string"
+                           },
+                           "created_at": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "plan_list_response": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "string"
+                     },
+                     "data": {
+                        "type": "object",
+                        "properties": {
+                           "data": {
+                              "type": "object",
+                              "properties": {
+                                 "id": {
+                                    "type": "string"
+                                 },
+                                 "min_amount": {
+                                    "type": "number"
+                                 },
+                                 "max_amount": {
+                                    "type": "number"
+                                 },
+                                 "min_tenure": {
+                                    "type": "number"
+                                 },
+                                 "max_tenure": {
+                                    "type": "number"
+                                 },
+                                 "interest_rate": {
+                                    "type": "number"
+                                 },
+                                 "ltv_percent": {
+                                    "type": "number"
+                                 },
+                                 "margin_call": {
+                                    "type": "number"
+                                 },
+                                 "liquidation_call": {
+                                    "type": "number"
+                                 },
+                                 "overdue": {
+                                    "type": "number"
+                                 },
+                                 "status": {
+                                    "type": "number"
+                                 },
+                                 "updated_at": {
+                                    "type": "string"
+                                 },
+                                 "created_at": {
+                                    "type": "string"
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "plan_status_update_response": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "string"
+                     }
+                  }
+               }
+            }
+         },
+         "plan_details_response": {
+            "type": "object",
+            "properties": {
+               "response": {
+                  "type": "object",
+                  "properties": {
+                     "error": {
+                        "type": "boolean"
+                     },
+                     "message": {
+                        "type": "string"
+                     },
+                     "data": {
+                        "type": "object",
+                        "properties": {
+                           "id": {
+                              "type": "string"
+                           },
+                           "min_amount": {
+                              "type": "number"
+                           },
+                           "max_amount": {
+                              "type": "number"
+                           },
+                           "min_tenure": {
+                              "type": "number"
+                           },
+                           "max_tenure": {
+                              "type": "number"
+                           },
+                           "interest_rate": {
+                              "type": "number"
+                           },
+                           "ltv_percent": {
+                              "type": "number"
+                           },
+                           "margin_call": {
+                              "type": "number"
+                           },
+                           "liquidation_call": {
+                              "type": "number"
+                           },
+                           "overdue": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "number"
+                           },
+                           "updated_at": {
+                              "type": "string"
+                           },
+                           "created_at": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "security": [
+      {
+         "JWT": []
+      }
+   ],
+   "paths": {
+      "/account/loan": {
+         "post": {
+            "tags": ["User Loan"],
+            "summary": "Create Loan",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "plan_id": {
+                              "type": "string"
+                           },
+                           "coin_id": {
+                              "type": "string"
+                           },
+                           "amount": {
+                              "type": "number"
+                           },
+                           "coin_quantity": {
+                              "type": "number"
+                           }
+                        },
+                        "example": {
+                           "plan_id": "f7e1157d-3d5d-4e40-991b-f21e0f27422e",
+                           "coin_id": "694c7a54-f343-4684-9ee9-e884dbc4ef52",
+                           "amount": 234,
+                           "coin_quantity": 0.001
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/account/loan/interest": {
+         "post": {
+            "tags": ["User Loan"],
+            "summary": "Create Loan",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "loan_id": {
+                              "type": "string"
+                           },
+
+                           "interest": {
+                              "type": "number"
+                           }
+                        },
+                        "example": {
+                           "loan_id": "abed1d7e-00fd-46ae-ab38-7cd991502ab3",
+                           "interest": 234
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/account/{coin}/balance": {
+         "get": {
+            "tags": ["User Loan"],
+            "summary": "Get Balance By Coin",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "coin",
+                  "schema": {
+                     "type": "string",
+                     "example": "btc"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/plan": {
+         "post": {
+            "tags": ["Admin Plan"],
+            "summary": "Create Plan",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "min_amount": {
+                              "type": "number"
+                           },
+                           "max_amount": {
+                              "type": "number"
+                           },
+                           "crypto": {
+                              "type": "string"
+                           },
+                           "fiat": {
+                              "type": "string"
+                           },
+                           "min_tenure": {
+                              "type": "number"
+                           },
+                           "max_tenure": {
+                              "type": "number"
+                           },
+                           "interest_rate": {
+                              "type": "number"
+                           },
+                           "ltv_percent": {
+                              "type": "number"
+                           },
+                           "margin_call": {
+                              "type": "number"
+                           },
+                           "liquidation_call": {
+                              "type": "number"
+                           },
+                           "overdue": {
+                              "type": "number"
+                           },
+                           "interest_period": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/add_plan_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": ["Admin Plan"],
+            "summary": "Fetch Plan List",
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "page",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "limit",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "currency",
+                  "schema": {
+                     "type": "string"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_list_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/plan/{id}": {
+         "put": {
+            "tags": ["Admin Plan"],
+            "summary": "Update plan status",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "schema": {
+                     "type": "string",
+                     "example": "3d89faa0-e4c8-4adf-b321-5413595720d6"
+                  }
+               }
+            ],
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "status": {
+                              "type": "number"
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_status_update_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/plan/details/{id}": {
+         "get": {
+            "tags": ["Admin Plan"],
+            "summary": "Fetch  plan details",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "schema": {
+                     "type": "string",
+                     "example": "3d89faa0-e4c8-4adf-b321-5413595720d6"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_details_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/loan": {
+         "get": {
+            "tags": ["Admin Loan"],
+            "summary": "Fetch Loan List",
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "page",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "limit",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "status",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "id",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+
+               {
+                  "in": "query",
+                  "name": "coin_id",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "user_id",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "currency",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "overdue_amount",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "loan_status",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "ltv_amount",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "coin_quantity",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "start_date",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "end_date",
+                  "schema": {
+                     "type": "string"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_list_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/{loan_id}/emi": {
+         "get": {
+            "tags": ["Admin Loan"],
+            "summary": "Fetch Loan Interest List",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "loan_id",
+                  "schema": {
+                     "type": "string",
+                     "example": "02cc332b-0174-4eed-a16b-91bf21891f5e"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_list_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/{loan_id}/loan-emi": {
+         "get": {
+            "tags": ["Admin Loan"],
+            "summary": "Fetch Loan Interest List with plan and loan details",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "loan_id",
+                  "schema": {
+                     "type": "string",
+                     "example": "02cc332b-0174-4eed-a16b-91bf21891f5e"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_list_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/loan/close": {
+         "post": {
+            "tags": ["Admin Loan"],
+            "summary": "Loan close",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "loan_id": {
+                              "type": "string"
+                           },
+                           "user_id": {
+                              "type": "string"
+                           }
+                        },
+
+                        "example": {
+                           "loan_id": "02cc332b-0174-4eed-a16b-91bf21891f5e",
+                           "user_id": "ba63bf3c-96ec-51da-b7fb-4490c26b098f"
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/config": {
+         "post": {
+            "tags": ["Admin Configuration"],
+            "summary": "Create admin configuration",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "value": {
+                              "type": "number"
+                           },
+                           "type": {
+                              "type": "string"
+                           }
+                        },
+
+                        "example": {
+                           "value": 0,
+                           "type": "IS_LOAN_SERVICE_ACTIVE"
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": ["Admin Configuration"],
+            "summary": "Get admin configuration",
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_status_update_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/admin/config/{config_id}": {
+         "put": {
+            "tags": ["Admin Configuration"],
+            "summary": "Update admin config status",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "config_id",
+                  "schema": {
+                     "type": "string",
+                     "example": "502214fd-83e2-46b5-b151-acddb3f1fe05"
+                  }
+               }
+            ],
+            "requestBody": {
+               "description": "",
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "value": {
+                              "type": "number"
+                           }
+                        },
+                        "example": {
+                           "value": 0
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_status_update_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/user/list": {
+         "get": {
+            "tags": ["Loan Info"],
+            "summary": "Get loan list",
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "loan_id",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "status",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "page",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "limit",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "order",
+                  "schema": {
+                     "type": "string"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "orderBy",
+                  "schema": {
+                     "type": "string"
+                  }
+               }
+            ],
+
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_status_update_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/{loan_id}/detail": {
+         "get": {
+            "tags": ["Loan Info"],
+            "summary": "Get loan Detail",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "loan_id",
+                  "schema": {
+                     "type": "string"
+                  }
+               }
+            ],
+
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_status_update_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+
+      "/account/loan/topup": {
+         "post": {
+            "tags": ["User Loan"],
+            "summary": "Loan top up",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "loan_id": {
+                              "type": "string"
+                           },
+                           "coin_quantity": {
+                              "type": "number"
+                           }
+                        },
+                        "example": {
+                           "loan_id": "abed1d7e-00fd-46ae-ab38-7cd991502ab3",
+                           "coin_quantity": 0.01
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/account/loan/withdraw": {
+         "post": {
+            "tags": ["User Loan"],
+            "summary": "Loan withdraw",
+            "requestBody": {
+               "description": "",
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "loan_id": {
+                              "type": "string"
+                           }
+                        },
+                        "example": {
+                           "loan_id": "abed1d7e-00fd-46ae-ab38-7cd991502ab3"
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/account/loan/{loan_id}/emi": {
+         "get": {
+            "tags": ["User Loan"],
+            "summary": "Get loan interest by loan id",
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "loan_id",
+                  "schema": {
+                     "type": "string",
+                     "example": "02cc332b-0174-4eed-a16b-91bf21891f5e"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/loans_create_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/user/plan": {
+         "get": {
+            "tags": ["user Plan"],
+            "summary": "Fetch Plan List",
+            "parameters": [
+               {
+                  "in": "query",
+                  "name": "page",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "limit",
+                  "schema": {
+                     "type": "number"
+                  }
+               },
+               {
+                  "in": "query",
+                  "name": "currency",
+                  "schema": {
+                     "type": "string"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/plan_list_response"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Request Failed",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Error"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
